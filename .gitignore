@@ -216,3 +216,6 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Godot MCP - generated class data (run: uv run generate-classdata)
+src/godot_mcp/classdata/data/extension_api.json

@@ -1,0 +1,7 @@
+[gd_resource type="Resource" format=3 uid="uid://def456"]
+
+script_class = "PlayerData"
+max_health = 100
+speed = 200.0
+jump_height = Vector2(0, -300)
+tags = ["hero", "playable"]
