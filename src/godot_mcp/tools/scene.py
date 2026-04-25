@@ -7,7 +7,7 @@ from typing import Any
 
 from fastmcp import FastMCP
 
-from godot_mcp.config import get_project_root, resolve_project_path, to_res_path
+from godot_mcp.config import get_project_root, resolve_project_path
 from godot_mcp.parsers.tscn import Node, TscnFile, parse_tscn, tscn_to_dict
 
 mcp = FastMCP("scene")
@@ -56,6 +56,7 @@ def scene_get_node(path: str, node_path: str) -> dict[str, Any] | None:
     if node is None:
         return None
     from godot_mcp.parsers.tscn import _serialize_props
+
     return {
         "name": node.name,
         "type": node.type,
@@ -193,14 +194,12 @@ def scene_remove_node(path: str, node_path: str) -> dict[str, Any]:
 
     target_path = node.node_path()
     tscn.nodes = [
-        n for n in tscn.nodes
-        if n.node_path() != target_path and not is_descendant(n, target_path)
+        n for n in tscn.nodes if n.node_path() != target_path and not is_descendant(n, target_path)
     ]
 
     # Also remove connections involving this node
     tscn.connections = [
-        c for c in tscn.connections
-        if c.from_node != target_path and c.to_node != target_path
+        c for c in tscn.connections if c.from_node != target_path and c.to_node != target_path
     ]
 
     abs_path.write_text(tscn.to_tscn(), encoding="utf-8")

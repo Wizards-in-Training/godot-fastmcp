@@ -20,7 +20,6 @@ from typing import Any
 
 from godot_mcp.parsers.values import parse_value, value_to_string
 
-
 # ---------------------------------------------------------------------------
 # Data model
 # ---------------------------------------------------------------------------
@@ -116,6 +115,7 @@ class Connection:
 @dataclass
 class TscnFile:
     """Represents a parsed .tscn or .tres file."""
+
     # Header attributes (load_steps, uid, etc.)
     header_attrs: dict[str, str] = field(default_factory=dict)
     is_resource: bool = False  # True for .tres files
@@ -441,7 +441,7 @@ def _serialize_props(props: dict[str, Any]) -> dict[str, Any]:
 
 
 def _serialize_value(v: Any) -> Any:
-    if v is None or isinstance(v, (bool, int, float, str)):
+    if v is None or isinstance(v, bool | int | float | str):
         return v
     if isinstance(v, list):
         return [_serialize_value(i) for i in v]

@@ -5,16 +5,11 @@ from __future__ import annotations
 import pytest
 
 from godot_mcp.parsers.tscn import (
-    Connection,
-    ExtResource,
-    Node,
-    SubResource,
-    TscnFile,
-    parse_tscn,
     parse_tres,
+    parse_tscn,
     tscn_to_dict,
 )
-from godot_mcp.parsers.values import ExtResourceRef, SubResourceRef, Vector2
+from godot_mcp.parsers.values import ExtResourceRef, Vector2
 
 
 class TestParseTscn:
@@ -131,6 +126,7 @@ class TestTscnToDict:
 
     def test_values_are_json_serializable(self, simple_tscn_text: str):
         import json
+
         tscn = parse_tscn(simple_tscn_text)
         d = tscn_to_dict(tscn)
         # Should not raise

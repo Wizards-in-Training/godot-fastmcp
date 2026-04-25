@@ -18,7 +18,9 @@ def get_api_path() -> Path:
     return _API_PATH
 
 
-def generate_extension_api(godot_executable: str = "godot", output_path: Path | None = None) -> Path:
+def generate_extension_api(
+    godot_executable: str = "godot", output_path: Path | None = None
+) -> Path:
     """Generate extension_api.json from a local Godot installation.
 
     Runs: godot --headless --dump-extension-api
@@ -33,9 +35,7 @@ def generate_extension_api(godot_executable: str = "godot", output_path: Path | 
         cwd=str(out.parent),
     )
     if result.returncode != 0:
-        raise RuntimeError(
-            f"Failed to generate extension_api.json:\n{result.stderr}"
-        )
+        raise RuntimeError(f"Failed to generate extension_api.json:\n{result.stderr}")
 
     # Godot writes extension_api.json in the cwd
     generated = out.parent / "extension_api.json"
@@ -97,10 +97,11 @@ def get_class_summary(class_name: str) -> dict[str, Any] | None:
         "methods": [
             {
                 "name": m.get("name"),
-                "return_type": m.get("return_value", {}).get("type") if m.get("return_value") else "void",
+                "return_type": m.get("return_value", {}).get("type")
+                if m.get("return_value")
+                else "void",
                 "arguments": [
-                    {"name": a.get("name"), "type": a.get("type")}
-                    for a in m.get("arguments", [])
+                    {"name": a.get("name"), "type": a.get("type")} for a in m.get("arguments", [])
                 ],
             }
             for m in cls.get("methods", [])
@@ -109,15 +110,13 @@ def get_class_summary(class_name: str) -> dict[str, Any] | None:
             {
                 "name": s.get("name"),
                 "arguments": [
-                    {"name": a.get("name"), "type": a.get("type")}
-                    for a in s.get("arguments", [])
+                    {"name": a.get("name"), "type": a.get("type")} for a in s.get("arguments", [])
                 ],
             }
             for s in cls.get("signals", [])
         ],
         "constants": [
-            {"name": c.get("name"), "value": c.get("value")}
-            for c in cls.get("constants", [])
+            {"name": c.get("name"), "value": c.get("value")} for c in cls.get("constants", [])
         ],
     }
 

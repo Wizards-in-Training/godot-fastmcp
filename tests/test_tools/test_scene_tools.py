@@ -65,7 +65,7 @@ class TestSceneGetNode:
 
 class TestSceneCreate:
     def test_creates_scene_file(self, fake_project: Path):
-        result = scene_create("res://scenes/enemy.tscn", "Enemy", "CharacterBody2D")
+        scene_create("res://scenes/enemy.tscn", "Enemy", "CharacterBody2D")
         assert (fake_project / "scenes" / "enemy.tscn").exists()
 
     def test_returns_scene_structure(self, fake_project: Path):

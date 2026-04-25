@@ -10,15 +10,15 @@ def get_project_root() -> Path:
     """Return the validated Godot project root from GODOT_PROJECT_PATH env var."""
     raw = os.environ.get("GODOT_PROJECT_PATH", "")
     if not raw:
-        raise EnvironmentError(
+        raise OSError(
             "GODOT_PROJECT_PATH environment variable is not set. "
             "Point it at the directory containing your project.godot file."
         )
     root = Path(raw).expanduser().resolve()
     if not root.is_dir():
-        raise EnvironmentError(f"GODOT_PROJECT_PATH does not exist or is not a directory: {root}")
+        raise OSError(f"GODOT_PROJECT_PATH does not exist or is not a directory: {root}")
     if not (root / "project.godot").exists():
-        raise EnvironmentError(
+        raise OSError(
             f"No project.godot found in GODOT_PROJECT_PATH: {root}\n"
             "Make sure this points to the root of a Godot 4 project."
         )
@@ -41,7 +41,7 @@ def resolve_project_path(project_root: Path, path: str) -> Path:
     Raises ValueError if the resolved path escapes the project root.
     """
     if path.startswith("res://"):
-        rel = path[len("res://"):]
+        rel = path[len("res://") :]
         resolved = (project_root / rel).resolve()
     else:
         resolved = Path(path).expanduser()

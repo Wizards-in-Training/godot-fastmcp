@@ -6,7 +6,7 @@ from typing import Any
 
 from fastmcp import FastMCP
 
-from godot_mcp.config import get_project_root, resolve_project_path, to_res_path
+from godot_mcp.config import get_project_root, resolve_project_path
 from godot_mcp.parsers.tscn import TscnFile, parse_tres, tscn_to_dict
 
 mcp = FastMCP("resource")

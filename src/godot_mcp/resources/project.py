@@ -52,7 +52,7 @@ def scene_resource(path: str) -> dict[str, Any]:
 
 
 def _make_serializable(obj: Any) -> Any:
-    if obj is None or isinstance(obj, (bool, int, float, str)):
+    if obj is None or isinstance(obj, bool | int | float | str):
         return obj
     if isinstance(obj, list):
         return [_make_serializable(i) for i in obj]

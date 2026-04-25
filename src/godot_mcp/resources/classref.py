@@ -41,7 +41,5 @@ def all_classes() -> list[str]:
     """
     classes = list_classes()
     if not classes:
-        raise RuntimeError(
-            "No class data available. Run: uv run generate-classdata"
-        )
+        raise RuntimeError("No class data available. Run: uv run generate-classdata")
     return classes

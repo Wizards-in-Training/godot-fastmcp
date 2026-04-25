@@ -71,6 +71,7 @@ def format_gdscript_file(path: Path) -> None:
 def _parse_gdlint_output(output: str) -> list[dict[str, Any]]:
     """Parse gdlint output into structured diagnostics."""
     import re
+
     diagnostics = []
     # gdlint outputs lines like: path/to/file.gd:10: error message (rule-name)
     pattern = re.compile(r"^.+?:(\d+):\s+(.+)$", re.MULTILINE)
@@ -78,10 +79,12 @@ def _parse_gdlint_output(output: str) -> list[dict[str, Any]]:
         line = int(m.group(1))
         message = m.group(2).strip()
         severity = "error" if "error" in message.lower() else "warning"
-        diagnostics.append({
-            "line": line,
-            "column": 0,
-            "message": message,
-            "severity": severity,
-        })
+        diagnostics.append(
+            {
+                "line": line,
+                "column": 0,
+                "message": message,
+                "severity": severity,
+            }
+        )
     return diagnostics

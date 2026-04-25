@@ -12,7 +12,6 @@ import re
 from dataclasses import dataclass
 from typing import Any
 
-
 # ---------------------------------------------------------------------------
 # Value types
 # ---------------------------------------------------------------------------
@@ -224,6 +223,7 @@ class PackedArray:
 # Helpers
 # ---------------------------------------------------------------------------
 
+
 def _fmt(v: Any) -> str:
     """Format a value for TSCN serialization (numbers, strings, and other types)."""
     if isinstance(v, bool):
@@ -243,6 +243,7 @@ def _fmt(v: Any) -> str:
 # ---------------------------------------------------------------------------
 # Parser
 # ---------------------------------------------------------------------------
+
 
 class _Scanner:
     def __init__(self, text: str) -> None:
@@ -271,7 +272,7 @@ class _Scanner:
         if got != ch:
             raise ValueError(
                 f"Expected {ch!r} at pos {self.pos}, got {got!r}. "
-                f"Context: {self.text[max(0, self.pos-20):self.pos+20]!r}"
+                f"Context: {self.text[max(0, self.pos - 20) : self.pos + 20]!r}"
             )
         self.consume(len(ch))
 
@@ -296,8 +297,8 @@ def _parse_expr(sc: _Scanner) -> Any:
 
     # Keywords: null, true, false
     for kw, val in [("null", None), ("true", True), ("false", False)]:
-        if sc.text[sc.pos:].startswith(kw):
-            rest = sc.text[sc.pos + len(kw):]
+        if sc.text[sc.pos :].startswith(kw):
+            rest = sc.text[sc.pos + len(kw) :]
             if not rest or not (rest[0].isalnum() or rest[0] == "_"):
                 sc.consume(len(kw))
                 return val
@@ -338,9 +339,7 @@ def _parse_expr(sc: _Scanner) -> Any:
         args = _parse_args(sc)
         return _build_named(name, args)
 
-    raise ValueError(
-        f"Cannot parse value at pos {sc.pos}: {sc.text[sc.pos:sc.pos+40]!r}"
-    )
+    raise ValueError(f"Cannot parse value at pos {sc.pos}: {sc.text[sc.pos : sc.pos + 40]!r}")
 
 
 def _parse_string(sc: _Scanner) -> str:
@@ -351,8 +350,11 @@ def _parse_string(sc: _Scanner) -> str:
         ch = sc.consume()
         if ch == "\\":
             esc = sc.consume()
-            parts.append({"n": "\n", "t": "\t", "r": "\r", "\\": "\\",
-                          '"': '"', "'": "'", "0": "\0"}.get(esc, esc))
+            parts.append(
+                {"n": "\n", "t": "\t", "r": "\r", "\\": "\\", '"': '"', "'": "'", "0": "\0"}.get(
+                    esc, esc
+                )
+            )
         elif ch == quote:
             break
         else:
@@ -486,8 +488,6 @@ def value_to_string(value: Any) -> str:
     if isinstance(value, dict):
         if not value:
             return "{}"
-        pairs = ", ".join(
-            f"{value_to_string(k)}: {value_to_string(v)}" for k, v in value.items()
-        )
+        pairs = ", ".join(f"{value_to_string(k)}: {value_to_string(v)}" for k, v in value.items())
         return "{" + pairs + "}"
     return str(value)

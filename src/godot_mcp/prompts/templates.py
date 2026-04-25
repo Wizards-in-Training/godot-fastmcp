@@ -25,7 +25,7 @@ def gdscript_template(
 
     # Provide appropriate lifecycle methods based on node type
     if "CharacterBody" in node_type:
-        lifecycle = '''
+        lifecycle = """
 func _ready() -> void:
 \tpass
 
@@ -39,9 +39,9 @@ func _physics_process(delta: float) -> void:
 \t\tvelocity_local += get_gravity() * delta
 \t
 \tmove_and_slide()
-'''
+"""
     elif node_type in ("Area2D", "Area3D"):
-        lifecycle = '''
+        lifecycle = """
 func _ready() -> void:
 \tbody_entered.connect(_on_body_entered)
 \tarea_entered.connect(_on_area_entered)
@@ -53,21 +53,21 @@ func _on_body_entered(body: Node) -> void:
 
 func _on_area_entered(area: Area2D) -> void:
 \tpass
-'''
+"""
     elif "Control" in node_type or node_type in ("Button", "Label", "Panel"):
-        lifecycle = '''
+        lifecycle = """
 func _ready() -> void:
 \tpass
-'''
+"""
     else:
-        lifecycle = '''
+        lifecycle = """
 func _ready() -> void:
 \tpass
 
 
 func _process(delta: float) -> void:
 \tpass
-'''
+"""
 
     return (
         f"Please write a GDScript script for the following:\n\n"

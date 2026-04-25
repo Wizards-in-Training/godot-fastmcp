@@ -4,13 +4,13 @@ from __future__ import annotations
 
 from fastmcp import FastMCP
 
+from godot_mcp.prompts.templates import mcp as prompt_templates
+from godot_mcp.resources.classref import mcp as classref_resources
+from godot_mcp.resources.project import mcp as project_resources
 from godot_mcp.tools.project import mcp as project_tools
+from godot_mcp.tools.resource import mcp as resource_tools
 from godot_mcp.tools.scene import mcp as scene_tools
 from godot_mcp.tools.script import mcp as script_tools
-from godot_mcp.tools.resource import mcp as resource_tools
-from godot_mcp.resources.project import mcp as project_resources
-from godot_mcp.resources.classref import mcp as classref_resources
-from godot_mcp.prompts.templates import mcp as prompt_templates
 
 
 def create_server() -> FastMCP:

@@ -10,7 +10,6 @@ project.godot uses an INI-like format with Godot-typed values:
 
 from __future__ import annotations
 
-import configparser
 import re
 from pathlib import Path
 from typing import Any
@@ -54,7 +53,7 @@ def parse_project_config_text(text: str) -> dict[str, Any]:
             continue
 
         # Key = value
-        m = re.match(r'^([A-Za-z_][A-Za-z0-9_/]*)\s*=\s*(.+)$', stripped)
+        m = re.match(r"^([A-Za-z_][A-Za-z0-9_/]*)\s*=\s*(.+)$", stripped)
         if m:
             key = m.group(1)
             raw = m.group(2)

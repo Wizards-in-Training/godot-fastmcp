@@ -6,17 +6,14 @@ import pytest
 
 from godot_mcp.parsers.values import (
     AABB,
-    Basis,
     Color,
     ExtResourceRef,
     NodePath,
     PackedArray,
-    Quaternion,
     Rect2,
     StringName,
     SubResourceRef,
     Transform2D,
-    Transform3D,
     Vector2,
     Vector3,
     parse_value,
