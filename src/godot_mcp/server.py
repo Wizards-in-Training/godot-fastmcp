@@ -7,6 +7,7 @@ from fastmcp import FastMCP
 from godot_mcp.prompts.templates import mcp as prompt_templates
 from godot_mcp.resources.classref import mcp as classref_resources
 from godot_mcp.resources.project import mcp as project_resources
+from godot_mcp.tools.classdata import mcp as classdata_tools
 from godot_mcp.tools.project import mcp as project_tools
 from godot_mcp.tools.resource import mcp as resource_tools
 from godot_mcp.tools.scene import mcp as scene_tools
@@ -29,6 +30,7 @@ def create_server() -> FastMCP:
     mcp.mount(scene_tools, namespace="")
     mcp.mount(script_tools, namespace="")
     mcp.mount(resource_tools, namespace="")
+    mcp.mount(classdata_tools, namespace="")
     mcp.mount(project_resources, namespace="")
     mcp.mount(classref_resources, namespace="")
     mcp.mount(prompt_templates, namespace="")

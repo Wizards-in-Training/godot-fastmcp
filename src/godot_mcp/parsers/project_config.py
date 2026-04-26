@@ -97,5 +97,14 @@ def get_autoloads(config: dict[str, Any]) -> dict[str, str]:
 
 
 def get_godot_version(config: dict[str, Any]) -> str:
-    """Try to extract the Godot version requirement."""
-    return config.get("", {}).get("config_version", "")
+    """Extract the Godot version requirement from config/features.
+
+    Returns a "major.minor" string (e.g. "4.3") or "" if not found.
+    config/features is a list like ["Forward Plus", "4.3"].
+    """
+    features = config.get("application", {}).get("config/features", [])
+    if isinstance(features, list):
+        for item in features:
+            if re.match(r"^\d+\.\d+$", str(item)):
+                return str(item)
+    return ""
